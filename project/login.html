@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximun-scale=1">
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="CSS initialization.css">
+    <link rel="stylesheet" type="text/css" href="loginPage.css">
+    <script>
+        function validateForm(){
+            var x = document.forms["register"]["email"].value;
+            if(x == "" || x == null){
+                var inputEmail = document.getElementById("inputEmail");
+                inputEmail.style.display="block";
+                return false;
+            }
+            var atpos = x.indexOf("@");
+            var dotpos= x.indexOf(".");
+            if(atpos<1 || dotpos < atpos +2 || dotpos+2>x.length){
+                var errorEmail = document.getElementById("errorEmail");
+                errorEmail.style.display="block";
+  		        return false;
+            }
+
+            var y = document.forms["register"]["psd"].value;
+            if(y == "" || y == null){
+                var inputPassword = document.getElementById("inputPassword");
+                inputPassword.style.display="block";
+                return false;
+            }
+        }
+
+        function login() { 
+            var request = XMLHttpRequest;
+            var url = "http://127.0.0.1:4564/login-success.html";
+            var method = "GET";
+            request.open(method,url);
+            request.send();
+            request.onreadystatechange = function(){
+                if(request.readyState == 4){
+                    if(request.status == 200 || request.status == 304){
+                        alert(request.responseXML);
+                    }
+                }
+            }
+        }
+
+        function inputText(){
+            var x = document.getElementById("inputEmail");
+            var x1 = document.getElementById("errorEmail");
+            x.style.display="none";
+            x1.style.display="none";
+
+            var y = document.getElementById("inputPassword");
+            y.style.display="none";
+        }
+    </script>
+<body>
+    <div class="wrapper">
+        <div class="layout">
+            <div class="layout-inside">
+                <div class="mi-icon">
+                    <img src="photo/mi-icon.png" alt="">
+                </div>
+                <h3>註冊小米帳號</h3>
+                <div>
+                    <div class="regbox">
+                        <form action="Login.php" name="register" onsubmit="return validateForm()" method="post">
+                        <p>E-mail</p>
+                        <div class="form-input-stype">
+                            <label for="email" >
+                                <input type="email" id="email" name="email" placeholder="請輸入E-mail" onkeydown="inputText()">
+                            </label>
+                            <div id="inputEmail" class="plaseInput">
+                                    <img src="photo/n-warning-ico.png" alt=""><span>請輸入E-mail</span>
+                            </div>
+                            <div id="errorEmail" class="plaseInput">
+                                <img src="photo/n-warning-ico.png" alt=""><span>E-mail格式錯誤</span>
+                            </div>
+                        </div>
+                        <p>密碼</p>
+                        <div class="form-input-stype">
+                            <label for="password">
+                                <input type="password" id="password" name="psd" placeholder="請輸入Password" onkeydown="inputText()">
+                            </label>
+                            <div id="inputPassword" class="plaseInput">
+                                <img src="photo/n-warning-ico.png" alt=""><span>請輸入Password</span>
+                            </div>
+                        </div>
+                        <div class="submit-phone-btn">
+                            <input type="submit" value="立即註冊" class="submit-btn" onclick="login()">
+                            <br>
+                            <input type="button" value="用手機號碼註冊" class="phone-btn">
+                        </div>
+                        </form>
+                    </div>
+                    <div class="user-condition">
+                        <p>
+                            已閱讀並同意：小米
+                            <a href="">使用者協定</a>
+                            和
+                            <a href="">隱私政策 </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="tools">
+            <ul>
+                <li>
+                    <a href="#">中文(繁體) </a>
+                </li>
+                <li>
+                    <a href="#">English</a>
+                </li>
+                <li>
+                    <button>...</button>
+                    <span>|</span>
+                </li>
+                <li>
+                    <a href="#">常見問題</a>
+                    <span>|</span>
+                </li>
+                <li>
+                    <a href="#">隱私政策</a>
+                </li>
+            </ul>
+        </div><br>
+        <div class="copyright">小米公司版權所有</div>
+    </footer>
+    
+</body>
+</html>
